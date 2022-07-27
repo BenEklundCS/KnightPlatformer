@@ -1,19 +1,25 @@
-import pygame, time
+import pygame, time, sys
+
+clock = pygame.time.Clock()
+
+from pygame.locals import *
 
 pygame.init()
-width, height = 640, 480
+pygame.display.set_caption("Magic Casters")
+WINDOW_SIZE = (640, 480)
 backgroundColor = 0, 0, 0
 
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Magic Casters")
+screen = pygame.display.set_mode((WINDOW_SIZE),0,32)
 
 while True:
-	screen.fill(backgroundColor)
-	pygame.display.flip()
-
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      return
+      
+  screen.fill(backgroundColor)
+  pygame.display.flip()
+  clock.tick(60)
+  
 def main():
-  while True:
-      for event in pygame.event.get():
-          if event.type == pygame.QUIT:
-              return
+
 main()
