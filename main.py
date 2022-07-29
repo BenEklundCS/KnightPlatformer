@@ -12,6 +12,7 @@ backgroundColor = 0, 60, 120
 player_image = pygame.image.load(os.path.join('Characters/knight/idle','idle_knight_1.png'))
 floor_image = pygame.image.load('Tiles/floor_tile_3.png')
 brick_image = pygame.image.load('Tiles/brick_1.png')
+TILE_SIZE = brick_image.get_width()
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
 display = pygame.Surface((400, 300))
 
@@ -39,6 +40,21 @@ while True:
 
     display.fill(backgroundColor)
 
+    # Render Tile Map
+    tile_rects = []
+    y = 0
+    for row in game_map:
+      x = 0
+      for tile in row:
+        if tile == '1':
+          display.blit(floor_image, (x * TILE_SIZE, y * TILE_SIZE))
+        if tile == '2':
+          display.blit(brick_image, (x * TILE_SIZE, y * TILE_SIZE))
+        if tile != '0':
+          tile_rects.append(pygame.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+        x += 1
+      y += 1
+    
     display.blit(player_image,player_location)
 
     player_y_momentum += 0.2
