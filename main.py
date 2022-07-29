@@ -5,17 +5,23 @@ clock = pygame.time.Clock()
 from pygame.locals import *
 
 pygame.init()
+
+# Create screen and background color
 pygame.display.set_caption("Magic Casters")
 WINDOW_SIZE = (800, 600)
 backgroundColor = 0, 60, 120
 
+# Load all relevant images
 player_image = pygame.image.load(os.path.join('Characters/knight/idle','idle_knight_1.png'))
 floor_image = pygame.image.load('Tiles/floor_tile_3.png')
 brick_image = pygame.image.load('Tiles/brick_1.png')
+# Set width of tiles for generation 
 TILE_SIZE = brick_image.get_width()
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
+# Create display for pixel scaling
 display = pygame.Surface((400, 300))
 
+# Draw game map
 game_map = [['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
             ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
             ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
@@ -29,6 +35,7 @@ game_map = [['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0
             ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2'],
             ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2']]
 
+# Collision and movement functions
 def collision_test(rect, tiles):
   hit_list = []
   for tile in tiles:
@@ -57,11 +64,11 @@ def move(rect, movement, tiles):
             rect.top = tile.bottom
             collision_types['top'] = True
     return rect, collision_types
-
+# Default movement
 moving_right = False
 moving_left = False
 
-player_location = [50,50]
+# Player movement and hitboxes
 player_y_momentum = 0
 player_rect = pygame.Rect(50, 50 , player_image.get_width(), player_image.get_height())
 
@@ -85,7 +92,7 @@ while True:
       y += 1
 
     #player_location[1] += player_y_momentum
-
+    # Player movement handling
     player_movement = [0, 0]
     if moving_right:
       player_movement[0] += 2
@@ -95,12 +102,12 @@ while True:
     player_y_momentum += 0.2
     if player_y_momentum > 3:
       player_y_momentum = 3
-  
+    # Run move function to determine player_rect movement
     player_rect, collisions = move(player_rect, player_movement, tile_rects)
-  
+    # Display player/refresh
     display.blit(player_image, (player_rect.x, player_rect.y))
   
-
+    # Game event loop
     for event in pygame.event.get():  # event loop
         if event.type == pygame.QUIT:  # check for window quit
             pygame.quit()  # stop pygame
