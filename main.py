@@ -10,8 +10,23 @@ WINDOW_SIZE = (800, 600)
 backgroundColor = 0, 60, 120
 
 player_image = pygame.image.load(os.path.join('Characters/knight/idle','idle_knight_1.png'))
-
+floor_image = pygame.image.load('Tiles/floor_tile_3.png')
+brick_image = pygame.image.load('Tiles/brick_1.png')
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
+display = pygame.Surface((400, 300))
+
+game_map = [['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
+            ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2'],
+            ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2'],
+            ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2'],
+            ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2']]
 
 moving_right = False
 moving_left = False
@@ -22,14 +37,11 @@ player_y_momentum = 0
 
 while True:
 
-    screen.fill(backgroundColor)
+    display.fill(backgroundColor)
 
-    screen.blit(player_image,player_location)
+    display.blit(player_image,player_location)
 
-    if player_location[1] > WINDOW_SIZE[1]-player_image.get_height():
-        player_y_momentum = -player_y_momentum
-    else:
-        player_y_momentum += 0.2
+    player_y_momentum += 0.2
     player_location[1] += player_y_momentum
 
     if moving_right:
@@ -56,10 +68,12 @@ while True:
             if event.key == K_LEFT:
                 moving_left = False
 
+    surf = pygame.transform.scale(display, WINDOW_SIZE)
+    screen.blit(surf, (0, 0))
     pygame.display.update()
     clock.tick(60)
 
 
 def main():
     pass
-main()
+main()            
