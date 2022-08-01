@@ -3,6 +3,7 @@ import pygame, sys, os
 clock = pygame.time.Clock()
 
 from pygame.locals import *
+from functions import *
 
 pygame.init()
 
@@ -21,53 +22,7 @@ screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
 # Create display for pixel scaling
 display = pygame.Surface((600, 400))
 
-
-# Generate/read game map
-def read_map(path):
-    f = open(path + '.txt', 'r')
-    data = f.read()
-    f.close()
-    data = data.split('\n')
-    game_map = []
-    for row in data:
-        game_map.append(list(row))
-    return game_map
-
-
 game_map = read_map('map')
-
-
-# Collision and movement functions
-def collision_test(rect, tiles):
-    hit_list = []
-    for tile in tiles:
-        if rect.colliderect(tile):
-            hit_list.append(tile)
-    return hit_list
-
-
-def move(rect, movement, tiles):
-    collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}
-    rect.x += movement[0]
-    hit_list = collision_test(rect, tiles)
-    for tile in hit_list:
-        if movement[0] > 0:
-            rect.right = tile.left
-            collision_types['right'] = True
-        elif movement[0] < 0:
-            rect.left = tile.right
-            collision_types['left'] = True
-    rect.y += movement[1]
-    hit_list = collision_test(rect, tiles)
-    for tile in hit_list:
-        if movement[1] > 0:
-            rect.bottom = tile.top
-            collision_types['bottom'] = True
-        elif movement[1] < 0:
-            rect.top = tile.bottom
-            collision_types['top'] = True
-    return rect, collision_types
-
 
 # Default movement
 moving_right = False
