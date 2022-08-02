@@ -1,21 +1,22 @@
 import pygame, sys, os
+from functions import *
 
 clock = pygame.time.Clock()
 
 from pygame.locals import *
-from functions import *
 
 pygame.init()
 
 # Create screen and background color
 pygame.display.set_caption("Magic Casters")
 WINDOW_SIZE = (1200, 800)
-backgroundColor = 0, 60, 120
+backgroundColor = 20, 20, 20
 
 # Load all relevant images
 player_image = pygame.image.load(os.path.join('Characters/knight/idle', 'idle_knight_1.png'))
 floor_image = pygame.image.load('Tiles/floor_tile_3.png')
 brick_image = pygame.image.load('Tiles/brick_1.png')
+# blank = pygame.image.load('Tiles/blank.png')
 # Set width of tiles for generation 
 TILE_SIZE = brick_image.get_width()
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
@@ -32,14 +33,14 @@ moving_left = False
 player_y_momentum = 0
 air_timer = 0
 camera_scroll = [0, 0]
-player_rect = pygame.Rect(50, 50, player_image.get_width(), player_image.get_height())
+player_rect = pygame.Rect(300, 300, player_image.get_width(), player_image.get_height())
 
 while True:
 
     display.fill(backgroundColor)
 
-    camera_scroll[0] += (player_rect.x-camera_scroll[0]-200)/20
-    camera_scroll[1] += (player_rect.y-camera_scroll[1]-200)/20
+    camera_scroll[0] += (player_rect.x - camera_scroll[0] - 200) / 20
+    camera_scroll[1] += (player_rect.y - camera_scroll[1] - 200) / 20
     scroll = camera_scroll.copy()
     scroll[0] = int(scroll[0])
     scroll[1] = int(scroll[1])
@@ -51,9 +52,11 @@ while True:
         x = 0
         for tile in row:
             if tile == '1':
-                display.blit(floor_image, (x * TILE_SIZE-scroll[0], y * TILE_SIZE-scroll[1]))
+                display.blit(floor_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
             if tile == '2':
-                display.blit(brick_image, (x * TILE_SIZE-scroll[0], y * TILE_SIZE-scroll[1]))
+                display.blit(brick_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
+            """if tile == '0':
+                display.blit(blank, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))"""
             if tile != '0':
                 tile_rects.append(pygame.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
             x += 1
@@ -78,7 +81,7 @@ while True:
     else:
         air_timer += 1
     # Display player/refresh
-    display.blit(player_image, (player_rect.x-camera_scroll[0], player_rect.y-camera_scroll[1]))
+    display.blit(player_image, (player_rect.x - camera_scroll[0], player_rect.y - camera_scroll[1]))
 
     # Game event loop
     for event in pygame.event.get():  # event loop
