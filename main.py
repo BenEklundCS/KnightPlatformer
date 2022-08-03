@@ -1,39 +1,12 @@
 import pygame, sys, os
 from functions import *
+from assets import *
 
 clock = pygame.time.Clock()
 
 from pygame.locals import *
 
 pygame.init()
-
-# Create screen and background color
-pygame.display.set_caption("Magic Casters")
-WINDOW_SIZE = (1200, 800)
-backgroundColor = 20, 20, 20
-
-# Load all relevant images
-player_image = pygame.image.load(os.path.join('Characters/knight/idle', 'idle_knight_1.png'))
-floor_image = pygame.image.load('Tiles/floor_tile_3.png')
-brick_image = pygame.image.load('Tiles/brick_1.png')
-# blank = pygame.image.load('Tiles/blank.png')
-# Set width of tiles for generation 
-TILE_SIZE = brick_image.get_width()
-screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
-# Create display for pixel scaling
-display = pygame.Surface((600, 400))
-
-game_map = read_map('map')
-
-# Default movement
-moving_right = False
-moving_left = False
-
-# Player movement and hitboxes
-player_y_momentum = 0
-air_timer = 0
-camera_scroll = [0, 0]
-player_rect = pygame.Rect(300, 300, player_image.get_width(), player_image.get_height())
 
 while True:
 
@@ -80,7 +53,15 @@ while True:
         air_timer = 0
     else:
         air_timer += 1
+
     # Display player/refresh
+    if frame >= len(idle_images):
+        frame = 0
+    player_image = idle_images[frame]
+    if pygame.time.get_ticks() - last_update > image_interval:
+        frame += 1
+        last_update = pygame.time.get_ticks()
+
     display.blit(player_image, (player_rect.x - camera_scroll[0], player_rect.y - camera_scroll[1]))
 
     # Game event loop
