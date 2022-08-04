@@ -28,14 +28,11 @@ while True:
                 display.blit(floor_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
             if tile == '2':
                 display.blit(brick_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
-            """if tile == '0':
-                display.blit(blank, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))"""
             if tile != '0':
                 tile_rects.append(pygame.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
             x += 1
         y += 1
 
-    # player_location[1] += player_y_momentum
     # Player movement handling
     player_movement = [0, 0]  # by default the player should not be moving without input
     if moving_right:
@@ -62,6 +59,8 @@ while True:
         frame += 1
         last_update = pygame.time.get_ticks()
 
+    if reversed:
+      player_image = pygame.transform.flip(player_image, True, False)
     display.blit(player_image, (player_rect.x - camera_scroll[0], player_rect.y - camera_scroll[1]))
 
     # Game event loop
@@ -73,8 +72,10 @@ while True:
         if event.type == KEYDOWN:  # check for key pressed and alter movement based on it
             if event.key == K_RIGHT:
                 moving_right = True
+                reversed = False
             if event.key == K_LEFT:
                 moving_left = True
+                reversed = True
             if event.key == K_UP:
                 if air_timer < 6:  # this prevents "spamming" the jump key to multi-jump
                     player_y_momentum = -6
