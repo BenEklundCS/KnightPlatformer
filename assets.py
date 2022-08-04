@@ -4,7 +4,7 @@ from functions import *
 
 # Create screen and background color
 pygame.display.set_caption("Magic Casters")
-WINDOW_SIZE = (1200, 800)
+WINDOW_SIZE = (1920, 1080)
 backgroundColor = 20, 20, 20
 
 # Load all relevant images
@@ -19,7 +19,18 @@ idle_images = [pygame.image.load('Characters/knight/idle/idle_1.png'),
                pygame.image.load('Characters/knight/idle/idle_5.png'),
                pygame.image.load('Characters/knight/idle/idle_6.png')]
 # Walk images used for animation
-walk_images = []
+walk_images = [pygame.image.load('Characters/knight/walk/walk_1.png'),
+               pygame.image.load('Characters/knight/walk/walk_2.png'),
+               pygame.image.load('Characters/knight/walk/walk_3.png'),
+               pygame.image.load('Characters/knight/walk/walk_4.png'),
+               pygame.image.load('Characters/knight/walk/walk_5.png'),
+               pygame.image.load('Characters/knight/walk/walk_6.png'),
+               pygame.image.load('Characters/knight/walk/walk_7.png'),
+               pygame.image.load('Characters/knight/walk/walk_8.png'),
+               pygame.image.load('Characters/knight/walk/walk_9.png'),
+               pygame.image.load('Characters/knight/walk/walk_10.png'),
+               pygame.image.load('Characters/knight/walk/walk_11.png'),
+               pygame.image.load('Characters/knight/walk/walk_12.png')]
 
 # blank = pygame.image.load('Tiles/blank.png')
 # Set width of tiles for generation
@@ -33,7 +44,7 @@ game_map = read_map('map')
 # Default movement
 moving_right = False
 moving_left = False
-reversed = False
+reverse = False
 
 # Player movement and hitboxes
 player_y_momentum = 0

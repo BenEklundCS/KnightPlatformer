@@ -51,15 +51,23 @@ while True:
     else:
         air_timer += 1
 
-    # Display player/refresh
-    if frame >= len(idle_images):
-        frame = 0
-    player_image = idle_images[frame]
-    if pygame.time.get_ticks() - last_update > image_interval:
-        frame += 1
-        last_update = pygame.time.get_ticks()
+    # Display player/refresh and animations
+    if moving_right or moving_left:
+        if frame >= len(walk_images):
+            frame = 0
+        player_image = walk_images[frame]
+        if pygame.time.get_ticks() - last_update > image_interval - 50:
+            frame += 1
+            last_update = pygame.time.get_ticks()
+    else:
+        if frame >= len(idle_images):
+            frame = 0
+        player_image = idle_images[frame]
+        if pygame.time.get_ticks() - last_update > image_interval:
+            frame += 1
+            last_update = pygame.time.get_ticks()
 
-    if reversed:
+    if reverse:
       player_image = pygame.transform.flip(player_image, True, False)
     display.blit(player_image, (player_rect.x - camera_scroll[0], player_rect.y - camera_scroll[1]))
 
@@ -72,10 +80,10 @@ while True:
         if event.type == KEYDOWN:  # check for key pressed and alter movement based on it
             if event.key == K_RIGHT:
                 moving_right = True
-                reversed = False
+                reverse = False
             if event.key == K_LEFT:
                 moving_left = True
-                reversed = True
+                reverse = True
             if event.key == K_UP:
                 if air_timer < 6:  # this prevents "spamming" the jump key to multi-jump
                     player_y_momentum = -6
