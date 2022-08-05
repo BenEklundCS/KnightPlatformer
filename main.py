@@ -1,10 +1,8 @@
 import pygame, sys, os
 from functions import *
 from assets import *
-
-clock = pygame.time.Clock()
-
 from pygame.locals import *
+clock = pygame.time.Clock()
 
 pygame.init()
 
@@ -66,26 +64,26 @@ while True:
         if pygame.time.get_ticks() - last_update > image_interval:
             frame += 1
             last_update = pygame.time.get_ticks()
-
+    # Determines direction player image should be rendered 
     if reverse:
       player_image = pygame.transform.flip(player_image, True, False)
     display.blit(player_image, (player_rect.x - camera_scroll[0], player_rect.y - camera_scroll[1]))
 
     # Game event loop
-    for event in pygame.event.get():  # event loop
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:  # check for window quit
             pygame.quit()  # stop pygame
             sys.exit()  # stop script
         # Player controls
         if event.type == KEYDOWN:  # check for key pressed and alter movement based on it
-            if event.key == K_RIGHT:
+            if event.key == K_RIGHT:  # right arrow key
                 moving_right = True
-                reverse = False
+                reverse = False  # alter player direction 
             if event.key == K_LEFT:
                 moving_left = True
-                reverse = True
+                reverse = True  # alter player direction 
             if event.key == K_UP:
-                if air_timer < 6:  # this prevents "spamming" the jump key to multi-jump
+                if air_timer < 6:  # this prevents spamming the jump key to multi-jump
                     player_y_momentum = -6
         if event.type == KEYUP:  # check for key released and alter movement based on it
             if event.key == K_RIGHT:
