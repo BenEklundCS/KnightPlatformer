@@ -17,7 +17,9 @@ idle_images = [pygame.image.load('Characters/knight/idle/idle_1.png'),
                pygame.image.load('Characters/knight/idle/idle_3.png'),
                pygame.image.load('Characters/knight/idle/idle_4.png'),
                pygame.image.load('Characters/knight/idle/idle_5.png'),
-               pygame.image.load('Characters/knight/idle/idle_6.png')]
+               pygame.image.load('Characters/knight/idle/idle_6.png'),
+               pygame.image.load('Characters/knight/idle/idle_7.png'),
+               pygame.image.load('Characters/knight/idle/idle_8.png')]
 # Walk images used for animation
 walk_images = [pygame.image.load('Characters/knight/walk/walk_1.png'),
                pygame.image.load('Characters/knight/walk/walk_2.png'),
@@ -26,11 +28,7 @@ walk_images = [pygame.image.load('Characters/knight/walk/walk_1.png'),
                pygame.image.load('Characters/knight/walk/walk_5.png'),
                pygame.image.load('Characters/knight/walk/walk_6.png'),
                pygame.image.load('Characters/knight/walk/walk_7.png'),
-               pygame.image.load('Characters/knight/walk/walk_8.png'),
-               pygame.image.load('Characters/knight/walk/walk_9.png'),
-               pygame.image.load('Characters/knight/walk/walk_10.png'),
-               pygame.image.load('Characters/knight/walk/walk_11.png'),
-               pygame.image.load('Characters/knight/walk/walk_12.png')]
+               pygame.image.load('Characters/knight/walk/walk_8.png')]
 
 # blank = pygame.image.load('Tiles/blank.png')
 # Set width of tiles for generation
