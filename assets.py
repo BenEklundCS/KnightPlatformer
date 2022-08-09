@@ -5,7 +5,7 @@ from functions import *
 # Create screen and background color
 pygame.display.set_caption("Magic Casters")
 WINDOW_SIZE = (1920, 1080)
-backgroundColor = 20, 20, 20
+backgroundColor = 30, 50, 100
 
 # Load all relevant images
 player_image = pygame.image.load('Characters/knight/idle/idle_1.png')
@@ -13,6 +13,7 @@ floor_image = pygame.image.load('Tiles/floor_tile_3.png')
 brick_image = pygame.image.load('Tiles/brick_1.png')
 # Idle images used for animation
 idle_images = [pygame.image.load('Characters/knight/idle/idle_1.png'),
+
                pygame.image.load('Characters/knight/idle/idle_2.png'),
                pygame.image.load('Characters/knight/idle/idle_3.png'),
                pygame.image.load('Characters/knight/idle/idle_4.png'),
@@ -22,6 +23,7 @@ idle_images = [pygame.image.load('Characters/knight/idle/idle_1.png'),
                pygame.image.load('Characters/knight/idle/idle_8.png')]
 # Walk images used for animation
 walk_images = [pygame.image.load('Characters/knight/walk/walk_1.png'),
+
                pygame.image.load('Characters/knight/walk/walk_2.png'),
                pygame.image.load('Characters/knight/walk/walk_3.png'),
                pygame.image.load('Characters/knight/walk/walk_4.png'),
@@ -29,6 +31,15 @@ walk_images = [pygame.image.load('Characters/knight/walk/walk_1.png'),
                pygame.image.load('Characters/knight/walk/walk_6.png'),
                pygame.image.load('Characters/knight/walk/walk_7.png'),
                pygame.image.load('Characters/knight/walk/walk_8.png')]
+# Jump images used for animation
+jump_images = [pygame.image.load('Characters/knight/jump/jump_1.png'),
+               pygame.image.load('Characters/knight/jump/jump_2.png'),
+               pygame.image.load('Characters/knight/jump/jump_3.png'),
+               pygame.image.load('Characters/knight/jump/jump_4.png'),
+               pygame.image.load('Characters/knight/jump/jump_5.png'),
+               pygame.image.load('Characters/knight/jump/jump_6.png'),
+               pygame.image.load('Characters/knight/jump/jump_7.png'),
+               pygame.image.load('Characters/knight/jump/jump_8.png')]
 
 # blank = pygame.image.load('Tiles/blank.png')
 # Set width of tiles for generation
