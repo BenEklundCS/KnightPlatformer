@@ -4,13 +4,18 @@ from functions import *
 
 # Create screen and background color
 pygame.display.set_caption("Magic Casters")
-WINDOW_SIZE = (1920, 1080)
-backgroundColor = 30, 50, 100
+WINDOW_SIZE = (800, 600)
+#backgroundColor = 30, 50, 100
 
 # Load all relevant images
 player_image = pygame.image.load('Characters/knight/idle/idle_1.png')
 floor_image = pygame.image.load('Tiles/floor_tile_3.png')
 brick_image = pygame.image.load('Tiles/brick_1.png')
+#merlons_image = pygame.image.load('Tiles\merlons_1.png')
+background_image = pygame.image.load('Background/background.png')
+tile_index = {1:floor_image,
+              2:brick_image}
+              #3:merlons_image}
 # Idle images used for animation
 idle_images = [pygame.image.load('Characters/knight/idle/idle_1.png'),
 
@@ -46,9 +51,9 @@ jump_images = [pygame.image.load('Characters/knight/jump/jump_1.png'),
 TILE_SIZE = brick_image.get_width()
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
 # Create display for pixel scaling
-display = pygame.Surface((600, 400))
+display = pygame.Surface((800, 600))
 
-game_map = read_map('map')
+game_map = {}
 
 # Default movement
 moving_right = False

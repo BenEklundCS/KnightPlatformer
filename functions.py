@@ -1,13 +1,25 @@
 # Generate/read game map
-def read_map(path):
-    f = open(path + '.txt', 'r')
-    data = f.read()
-    f.close()
-    data = data.split('\n')
-    game_map = []
-    for row in data:
-        game_map.append(list(row))
-    return game_map
+import random
+
+CHUNK_SIZE = 8
+
+def generate_chunk(x, y):
+    chunk_data = []
+    for y_pos in range(CHUNK_SIZE):
+        for x_pos in range(CHUNK_SIZE):
+            target_x = x * CHUNK_SIZE + x_pos
+            target_y = y * CHUNK_SIZE + y_pos
+            tile_type = 0 # air
+            if target_y > 10:
+                tile_type = 2 # brick
+            elif target_y == 10:
+                tile_type = 1 # floor
+            """elif target_y == 9:
+                if random.randint(1,3) == 1:
+                    tile_type = 3 # merlons"""
+            if tile_type != 0:
+                chunk_data.append([[target_x, target_y], tile_type])
+    return chunk_data  
 
 # Collision and movement functions
 def collision_test(rect, tiles):
@@ -16,7 +28,6 @@ def collision_test(rect, tiles):
         if rect.colliderect(tile):
             hit_list.append(tile)
     return hit_list
-
 
 def move(rect, movement, tiles):
     collision_types = {'top': False, 'bottom': False, 'right': False, 'left': False}

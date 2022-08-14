@@ -10,30 +10,35 @@ pygame.init()
 
 while True:
 
-    display.fill(backgroundColor)
+    display.blit(background_image, (0, 0))
 
-    camera_scroll[0] += (player_rect.x - camera_scroll[0] - 200) / 20
-    camera_scroll[1] += (player_rect.y - camera_scroll[1] - 200) / 20
+    camera_scroll[0] += (player_rect.x - camera_scroll[0] - 350) / 20
+    camera_scroll[1] += (player_rect.y - camera_scroll[1] - 350) / 20
     scroll = camera_scroll.copy()
     scroll[0] = int(scroll[0])
     scroll[1] = int(scroll[1])
-
+    """
+    
     # Render Tile Map
+    
+    """
     tile_rects = []
-    y = 0
-    for row in game_map:
-        x = 0
-        for tile in row:
-            if tile == '1':
-                display.blit(floor_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
-            if tile == '2':
-                display.blit(brick_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
-            if tile != '0':
-                tile_rects.append(pygame.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
-            x += 1
-        y += 1
-
+    for y in range(6):
+        for x in range(6):
+            target_x = x - 1 + int(round(scroll[0]/(CHUNK_SIZE*32)))
+            target_y = y - 1 + int(round(scroll[1]/(CHUNK_SIZE*32)))
+            target_chunk = str(target_x) + ";" + str(target_y)
+            if target_chunk not in game_map:
+                game_map[target_chunk] = generate_chunk(target_x, target_y)
+            for tile in game_map[target_chunk]:
+                display.blit(tile_index[tile[1]], (tile[0][0]*32-scroll[0], tile[0][1]*32-scroll[1]))
+                if tile[1] in [1,2]:
+                    tile_rects.append(pygame.Rect(tile[0][0]*32, tile[0][1]*32, 32, 32))
+    """
+    
     # Player movement handling
+    
+    """
     player_movement = [0, 0]  # by default the player should not be moving without input
     if moving_right:
         player_movement[0] += 4  # when player is moving right we change the x velocity by a positive number
@@ -50,8 +55,11 @@ while True:
         air_timer = 0
     else:
         air_timer += 1
+    """
 
     # Display player/refresh and animations
+    
+    """
     if moving_right and air_timer < 6 or moving_left and air_timer < 6:
         if frame >= len(walk_images):
             frame = 0
@@ -73,12 +81,19 @@ while True:
         if pygame.time.get_ticks() - last_update > image_interval:
             frame += 1
             last_update = pygame.time.get_ticks()
+    """
+    
+    # Player image reverse handling
 
+    """
     if reverse:
       player_image = pygame.transform.flip(player_image, True, False)
     display.blit(player_image, (player_rect.x - camera_scroll[0], player_rect.y - camera_scroll[1]))
-
+    """
+    
     # Game event loop
+    
+    """
     for event in pygame.event.get():  # event loop
         if event.type == pygame.QUIT:  # check for window quit
             pygame.quit()  # stop pygame
@@ -101,8 +116,11 @@ while True:
                 moving_right = False
             if event.key == K_LEFT:
                 moving_left = False
-
+    """
+    
     # Display draw and updates
+    
+    """
     surf = pygame.transform.scale(display, WINDOW_SIZE)
     screen.blit(surf, (0, 0))
     pygame.display.update()
